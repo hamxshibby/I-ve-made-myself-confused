@@ -6,25 +6,25 @@ function showArea() {
         document.getElementById("Area1").style.display = 'block';
         document.getElementById("Area2").style.display = 'none';
         document.getElementById("Area3").style.display = 'none';
-        // document.getElementById("docFooter").style.display = 'flex';
+       
     }
     else if (showMeTheMoney == 2) {
         document.getElementById("Area2").style.display = 'block';
         document.getElementById("Area1").style.display = 'none';
         document.getElementById("Area3").style.display = 'none';
-        // document.getElementById("docFooter").style.display = 'flex';
+      
     }
     else if (showMeTheMoney == 3) {
         document.getElementById("Area3").style.display = 'block';
         document.getElementById("Area2").style.display = 'none';
         document.getElementById("Area1").style.display = 'none';
-        // document.getElementById("docFooter").style.display = 'hidden';
+
     }
     else if (showMeTheMoney == 0) {
         document.getElementById("Area1").style.display = 'none';
         document.getElementById("Area2").style.display = 'none';
         document.getElementById("Area3").style.display = 'none';
-        // document.getElementById("docFooter").style.display = 'hidden';
+
     }
 
 }
@@ -54,7 +54,7 @@ function genAgain(result){
 
 function genOrderHistory(){
     var historyRef = new XMLHttpRequest();
-    var url_hist = "https://student.business.uab.edu/jsonwebservice/service1.svc/getCustomerOrderHistory/";
+    var url_hist = "https://student.business.uab.edu/jsonwebservice/service1.svc/getCustomerOrderHistory";
     url_hist += document.getElementById('customerIdInput').value;
 
     historyRef.onreadystatechange = function () {
@@ -83,7 +83,7 @@ function genHistory(result) {
 
 function genCustOrders() {
     var orderRef = new XMLHttpRequest();
-    var url_ord = "https://student.business.uab.edu/jsonwebservice/service1.svc/getOrdersForCustomer/";
+    var url_ord = "https://student.business.uab.edu/jsonwebservice/service1.svc/getOrdersForCustomer";
     url_ord += document.getElementById('customerOrderIdInput').value;
 
     orderRef.onreadystatechange = function () {
