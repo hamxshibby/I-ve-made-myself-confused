@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="js/assignment_5.js"></script>
+    <link rel="text/stylesheet" type="text/stylesheet" href="css/assignment_5.css">
+    <title>Assignment 5 Mitch Hamrick</title>
+    
+    
+</head>
+
+<body>
+
+    <div id="selectionArea">
+        <h1 id="selectionHeader">Which section do you want to see?</h1>
+        <select name="Area Selection" id="userAreaSelection" onchange="showArea()">
+            <option value="0">--</option>
+            <option value="1">Customer List</option>
+            <option value="2">Order History</option>
+            <option value="3">Create Order</option>
+        </select>
+        <hr>
+    </div>
+
+    <section id="Area1" style="display: none;">
+        <h1>Complete Customer List</h1>
+        <button id="generateCustomerList" onclick="genCompanyList()"> Generate List</button>
+        <br><br>
+        <table id="customerListTable">
+
+        </table>
+
+
+
+    </section>
+
+    <section id="Area2" style="display: none;">
+        <h1>Please input customer id.</h1><br>
+        <input type="text" name="" id="customerIdInput" placeholder="Customer ID"></input>
+        <button id="generateOrderHistory" onclick="genOrderHistory()">Generate Order History</button>
+        <hr>
+        <table id="customerOrdreHistoryTable">
+
+        </table>
+
+    </section>
+
+
+    <section id="Area3" style="display: none;">
+        <h1>Input customer ID</h1><br>
+        <input type="text" name="" id="customerOrderIdInput" placeholder="Customer ID"></input>
+        <button id="generateCustOrders" onclick="genCustOrders()">Generate Customer Orders</button>
+        <hr>
+        <table id="customerOrdersTable">
+
+        </table>
+
+    </section>
+
+
+</body>
+
+</html>
