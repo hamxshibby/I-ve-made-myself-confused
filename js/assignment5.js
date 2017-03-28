@@ -1,107 +1,158 @@
-function showArea() {
-    var showMeTheMoney_0 = document.getElementById("userAreaSelection");
-    var showMeTheMoney = showMeTheMoney_0.options[showMeTheMoney_0.selectedIndex].value;
-
-    if (showMeTheMoney == 1) {
-        document.getElementById("Area1").style.display = 'block';
-        document.getElementById("Area2").style.display = 'none';
-        document.getElementById("Area3").style.display = 'none';
-       
+function MenuChoice()
+{
+         if (document.getElementById("menu").value == "Customer List")
+    {
+          document.getElementById("section1").style.visibility = "visible";
+           document.getElementById("section2").style.visibility = "hidden";
+              document.getElementById("section3").style.visibility = "hidden";
     }
-    else if (showMeTheMoney == 2) {
-        document.getElementById("Area2").style.display = 'block';
-        document.getElementById("Area1").style.display = 'none';
-        document.getElementById("Area3").style.display = 'none';
-      
+        
+        
+        else if (document.getElementById("menu").value == "Customer Order History")
+    {
+          document.getElementById("section1").style.visibility = "hidden";
+              document.getElementById("section2").style.visibility = "visible";
+            document.getElementById("section3").style.visibility = "hidden";
     }
-    else if (showMeTheMoney == 3) {
-        document.getElementById("Area3").style.display = 'block';
-        document.getElementById("Area2").style.display = 'none';
-        document.getElementById("Area1").style.display = 'none';
-
+    
+    
+    
+    else if (document.getElementById("menu").value == "List of Customer Orders")
+    
+    {
+            document.getElementById("section1").style.visibility = "hidden";
+                document.getElementById("section2").style.visibility = "hidden";
+            document.getElementById("section3").style.visibility = "visible";
     }
-    else if (showMeTheMoney == 0) {
-        document.getElementById("Area1").style.display = 'none';
-        document.getElementById("Area2").style.display = 'none';
-        document.getElementById("Area3").style.display = 'none';
-
+    
+     else
+    {
+           document.getElementById("section1").style.visibility = "hidden";
+               document.getElementById("section2").style.visibility = "hidden";
+           document.getElementById("section3").style.visibility = "hidden";
     }
-
 }
 
-
-function genCompanyList(){
-    var objectRef = new XMLHttpRequest();
+    
+    function GetOrders()
+{
+  
+    var clist = new XMLHttpRequest();
+  
     var url = "https://student.business.uab.edu/jsonwebservice/service1.svc/getAllCustomers";
-
-    objectRef.onreadystatechange = function(){
-        if(objectRef.readyState == 4 && objectRef.status == 200){
-            var output = JSON.parse(objectRef.responseText);
-            genAgain(output);
+    
+              clist.onreadystatechange = function()
+    {
+            if (clist.readyState == 4 && clist.status == 200)
+          {
+            var output = JSON.parse(clist.responseText);
+              GenerateOutput (output);
         }
-    };
-    objectRef.open("GET",url,true);
-    objectRef.send();
-}
-function genAgain(result){
-    var customerTable = document.getElementById('customerListTable');
-    customerTable.innerHTML += "<tr><th class='customerListHeader';>Customer ID </th><th class='customerListHeader';> Company Name </th><th class='customerListHeader';>City </th></tr>";
+    }
+    
+    clist.open("GET", url, true);
+     clist.send();
 
-    for(i = 0; i < result.GetAllCustomersResult.length; i++){
-        document.getElementById('customerListTable').innerHTML += "<tr><td>" + result.GetAllCustomersResult[i].CustomerID + "</td><td>" + result.GetAllCustomersResult[i].CompanyName + "</td><td>" + result.GetAllCustomersResult[i].City+"</td></tr>";
+
+  function GenerateOutput(result)
+    {
+        var display = "<table><tr><th>City</th><th>Company Name</th><th>Customer ID</th></tr>";
+        var count = 0;
+        var rowid = "oddrow";
+        for(count = 0; count < result.GetAllCustomersResult.length; count ++)
+        {
+             if (count%2 == 0)
+            {
+         
+                rowid = "evenrow";
+            }
+         
+            else
+            {
+                   rowid = "oddrow";
+            }
+              display += "<tr id=" + rowid + "><td>" + result.GetAllCustomersResult[count].City + "</td><td>" + result.GetAllCustomersResult[count].CompanyName + "</td><td>" + result.GetAllCustomersResult[count].CustomerID + "</td></tr>";
+        }
+            display += "</table>";
+             document.getElementById("cuslist").innerHTML = display;
     }
 }
 
-function genOrderHistory(){
-    var historyRef = new XMLHttpRequest();
-    var url_hist = "https://student.business.uab.edu/jsonwebservice/service1.svc/getCustomerOrderHistory";
-    url_hist += document.getElementById('customerIdInput').value;
-
-    historyRef.onreadystatechange = function () {
-        if (historyRef.readyState == 4 && historyRef.status == 200) {
-            var output = JSON.parse(historyRef.responseText);
-            genHistory(output);
+    
+    function CustHist()
+            {
+    
+    
+            var clist = new XMLHttpRequest();
+    
+            var url = "https://student.business.uab.edu/jsonwebservice/service1.svc/getCustomerOrderHistory/";
+                url += document.getElementById("custhisid").value;
+                        
+    
+                clist.onreadystatechange = function() {
+    
+                    if (clist.readyState == 4 && clist.status == 200) {
+    
+                        var output = JSON.parse(clist.responseText);
+                    GenerateOutput(output);
+                }
+            }
+            clist.open("GET", url, true);
+             clist.send();
+            
+            function GenerateOutput(result)
+             {
+            var display = "<table><tr><th>Product Name</th><th>Total</th></tr>";
+            var count = 0;
+              for(count = 0; count < result.length; count ++)
+            {
+                if (count%2 == 0)
+                {
+                        rowid = "evenrow";
+                }
+                else
+                {
+                    rowid = "oddrow";
+                }
+                display += "<tr id=" + rowid + "><td>" + result[count].ProductName + "</td><td>" + result[count].Total + "</td></tr>";
+            }
+              display += "</table>";
+            document.getElementById("cushist").innerHTML = display;
+            }
         }
-    };
-    historyRef.open("GET", url_hist, true);
-    historyRef.send();
-}
-
-function genHistory(result) {
-    var customerTable = document.getElementById('customerOrdreHistoryTable');
-    customerTable.innerHTML += "<tr><th class='orderHistoryTable';>Product Name </th><th class='orderHistoryTable';> Quantity </th></tr>";
-
-    for (i = 0; i < result.length; i++) {
-        document.getElementById('customerOrdreHistoryTable').innerHTML += "<tr><td>" + result[i].ProductName + "</td><td>" + result[i].Total + "</td></tr>";
-    }
-}
-
-
-
-
-
-
-function genCustOrders() {
-    var orderRef = new XMLHttpRequest();
-    var url_ord = "https://student.business.uab.edu/jsonwebservice/service1.svc/getOrdersForCustomer";
-    url_ord += document.getElementById('customerOrderIdInput').value;
-
-    orderRef.onreadystatechange = function () {
-        if (orderRef.readyState == 4 && orderRef.status == 200) {
-            var output = JSON.parse(orderRef.responseText);
-            genOrders(output);
-        }
-    };
-    orderRef.open("GET", url_ord, true);
-    orderRef.send();
-}
-
-function genOrders(result) {
-    var customerTable = document.getElementById('customerOrdersTable');
-    customerTable.innerHTML += "<tr><th class='orderTable';>Order Date </th><th class='orderTable';> ID </th><th class='orderTable';> Ship_Address </th><th class='orderTable';> Ship_City </th><th class='orderTable';> Ship_Name </th><th class='orderTable';> Ship_Zip </th><th class='orderTable';> Ship_Date </th></tr>";
-
-    for (i = 0; i < result.GetOrdersForCustomerResult.length; i++) {
-        document.getElementById('customerOrdersTable').innerHTML += "<tr><td>" + result.GetOrdersForCustomerResult[i].OrderDate + "</td><td>" + result.GetOrdersForCustomerResult[i].OrderID + "</td><td>" + result.GetOrdersForCustomerResult[i].ShipAddress + "</td><td>" + result.GetOrdersForCustomerResult[i].ShipCity + "</td><td>" + result.GetOrdersForCustomerResult[i].ShipName + "</td><td>" + result.GetOrdersForCustomerResult[i].ShipPostalcode + "</td><td>" + result.GetOrdersForCustomerResult[i].ShippedDate+"</td></tr>";
-    }
-}
-//maybeonedayaprojectwillworkfirsttrysoidon'tfeellikekillingmyselfhashtagsomeoneshootme
+        
+  function CustLisID()
+    {
+        var clist = new XMLHttpRequest();
+            var url = "https://student.business.uab.edu/jsonwebservice/service1.svc/getOrdersForCustomer/";
+            url += document.getElementById("ordid").value;
+                        
+            clist.onreadystatechange = function() {
+                if (clist.readyState == 4 && clist.status == 200) {
+                    var output = JSON.parse(clist.responseText);
+                    GenerateOutput(output);
+                }
+            }
+              clist.open("GET", url, true);
+            clist.send();
+            
+            function GenerateOutput(result)
+            {
+            var display = "<table><tr><th>Order Date</th><th>Order ID</th><th>Ship Address</th><th>Ship City</th><th>Ship Name</th><th>Ship Post Code</th><th>Shipped Date</th></tr>";
+              var count = 0;
+            for(count = 0; count < result.GetOrdersForCustomerResult.length; count ++)
+            {
+                if (count%2 == 0)
+                {
+                    rowid = "evenrow";
+                }
+                else
+                {
+                    rowid = "oddrow";
+                }
+                   display += "<tr id=" + rowid + "><td>" + result.GetOrdersForCustomerResult[count].OrderDate + "</td><td>" + result.GetOrdersForCustomerResult[count].OrderID + "</td><td>" + result.GetOrdersForCustomerResult[count].ShipAddress + "</td><td>" + result.GetOrdersForCustomerResult[count].ShipCity + "</td><td>" + result.GetOrdersForCustomerResult[count].ShipName + "</td><td>" + result.GetOrdersForCustomerResult[count].ShipPostcode + "</td><td>" + result.GetOrdersForCustomerResult[count].ShippedDate + "</td></tr>";
+            }
+            display += "</table>";
+                document.getElementById("cuslis").innerHTML = display;
+            }
+}//fffffffffffffuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu~~~~~~~~~~~~~~~ i deleted all my fun notes

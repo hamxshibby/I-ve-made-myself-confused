@@ -1,0 +1,25 @@
+body {
+      background-color: lightblue;
+      
+}
+    table, th, td {
+    border: 1px solid black;
+}
+
+        
+        
+        table {
+      border-collapse: collapse;
+     background-color: red;
+         color: black;
+}
+
+    td {
+             text-align: center;
+}
+
+section.section1 {overflow: scroll; position: absolute; height: 75%; width: 100%; visibility: hidden;}
+
+    section.section2 {overflow: scroll; position: absolute; height: 75%; width: 100%; visibility: hidden;}
+        
+        section.section3 {overflow: scroll; position: absolute; height: 75%; width: 100%; visibility: hidden;}

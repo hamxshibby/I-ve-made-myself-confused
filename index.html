@@ -1,66 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
 
+<!DOCTYPE html>
+
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="js/assignment_5.js"></script>
-    <link rel="text/stylesheet" type="text/stylesheet" href="css/assignment_5.css">
-    <title>Assignment 5 Mitch Hamrick</title>
-    
-    
+    <title>Assignment 5 - Mitch Hamrick</title>
+    <link rel="stylesheet" type="text/css" href="styles/Assignment5.css" />
+    <script src="js/Assignment5.js"></script>
 </head>
 
 <body>
+<section id="title">
+    <h1>Assignment5</h1>
+    <select onchange="MenuChoice()" id="menu">
+        <option>Chose an option fam!</option>
+        <option>Customer List</option>
+        <option>Customer Order History</option>
+        <option>List of Customer Orders</option>
+    </select>
+</section>
 
-    <div id="selectionArea">
-        <h1 id="selectionHeader">Which section do you want to see?</h1>
-        <select name="Area Selection" id="userAreaSelection" onchange="showArea()">
-            <option value="0">--</option>
-            <option value="1">Customer List</option>
-            <option value="2">Order History</option>
-            <option value="3">Create Order</option>
-        </select>
-        <hr>
-    </div>
+<section id="section1" class="section1">
+    <h2>Customer List</h2>
+    <button onclick="GetOrders()">Display Customer List</button>
+    <br>
+        <br>
+    <p id="cuslist"></p>
+</section>
 
-    <section id="Area1" style="display: none;">
-        <h1>Complete Customer List</h1>
-        <button id="generateCustomerList" onclick="genCompanyList()"> Generate List</button>
-        <br><br>
-        <table id="customerListTable">
+<section id="section2" class="section2">
+    <h2>Customer Order History</h2>
+    <h3>Enter Customer ID Below.</h3>
+    <input type="text" id="custhisid">
+    <button onclick="CustHist()" id="CustOrders">Display Customer Order History</button>
+    <br>
+        <br>
+    <label id="cushist"></label>
+</section>
 
-        </table>
-
-
-
-    </section>
-
-    <section id="Area2" style="display: none;">
-        <h1>Please input customer id.</h1><br>
-        <input type="text" name="" id="customerIdInput" placeholder="Customer ID"></input>
-        <button id="generateOrderHistory" onclick="genOrderHistory()">Generate Order History</button>
-        <hr>
-        <table id="customerOrdreHistoryTable">
-
-        </table>
-
-    </section>
-
-
-    <section id="Area3" style="display: none;">
-        <h1>Input customer ID</h1><br>
-        <input type="text" name="" id="customerOrderIdInput" placeholder="Customer ID"></input>
-        <button id="generateCustOrders" onclick="genCustOrders()">Generate Customer Orders</button>
-        <hr>
-        <table id="customerOrdersTable">
-
-        </table>
-
-    </section>
+<section id="section3" class="section3">
+    <h2>List of Customer Orders</h2>
+    <h3>Enter Customer ID Below.</h3>
+    <input type="text" id="ordid">
+    <button onclick="CustLisID()" id="CustOrders">List Customer Orders</button>
+    <br>
+        <br>
+    <label id="cuslis"></label>
+</section>
 
 
 </body>
-
 </html>
